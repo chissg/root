@@ -2396,14 +2396,17 @@ void TBranchElement::InitInfo()
                SetOnfileObject(fInfo);
             }
          }
-         if (fType == 3 || fType == 4 || (fType == 0 && fID == -2)) {
-            // Need to add the rule targetting transient members.
+         if (fType == 3 || fType == 4 || (fType == 0 && fID == -2) || fType == 2) {
+            // Need to add the rule targeting transient members.
             TStreamerInfo *localInfo = fInfo;
             if (fType == 3 || fType == 4) {
                // Don't we have real version information?
                // Not unless there is a subbranch with a non-split element of the class.
                // Search for the correct version.
                localInfo = FindOnfileInfo(fClonesClass, fBranches);
+            } else if (fType == 2) {
+               TStreamerElement *se = localInfo->GetElement(fID);
+               localInfo = FindOnfileInfo(se->GetClassPointer(), fBranches);
             }
 
             TString prefix(GetName());
