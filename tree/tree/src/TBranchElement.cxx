@@ -2404,9 +2404,6 @@ void TBranchElement::InitInfo()
                // Not unless there is a subbranch with a non-split element of the class.
                // Search for the correct version.
                localInfo = FindOnfileInfo(fClonesClass, fBranches);
-            } else if (fType == 2) {
-               TStreamerElement *se = localInfo->GetElement(fID);
-               localInfo = FindOnfileInfo(se->GetClassPointer(), fBranches);
             }
 
             TString prefix(GetName());
